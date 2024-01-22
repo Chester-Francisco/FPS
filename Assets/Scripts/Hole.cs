@@ -13,7 +13,7 @@ public class Hole : MonoBehaviour
     void Update() {
         
     }
-
+    
     void OnCollisionEnter(Collision collision ) {
         if(collision.gameObject.tag =="Ball") {
             Destroy(collision.gameObject);
