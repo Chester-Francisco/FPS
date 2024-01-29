@@ -27,15 +27,25 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update() {
         if (axes == RotationAxes.MouseX) {
+            // horizontal rotation
             float deltaHoriz = Input.GetAxis("Mouse X") * sensitivityHoriz;
             transform.Rotate(Vector3.up * deltaHoriz);
         } else if (axes == RotationAxes.MouseY) {
+            //vertical rotation
             rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
             rotationX = Mathf.Clamp (rotationX, minVert, maxVert);
 
             transform.localEulerAngles = new Vector3 (rotationX, 0, 0);
         } else {
-            // both vert and horiz rotation here
+            //vertical rotation
+            rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
+            rotationX = Mathf.Clamp (rotationX, minVert, maxVert);
+
+            float deltaHoriz = Input.GetAxis("Mouse X") * sensitivityHoriz;
+            float rotationY = transform.localEulerAngles.y + deltaHoriz;
+
+            transform.localEulerAngles = new Vector3 (rotationX, rotationY, 0);
+
         }
     }
 }
