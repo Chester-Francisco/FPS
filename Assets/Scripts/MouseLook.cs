@@ -13,6 +13,10 @@ public class MouseLook : MonoBehaviour
 
     public RotationAxes axes = RotationAxes.MouseXAndY;
     public float sensitivityHoriz = 9.0f;
+    public float sensitivityVert = 9.0f;
+    public float minVert = -45.0f;
+    public float maxVert = 45.0f;
+    private float rotationX = 0.0f;
 
 
     // Start is called before the first frame update
@@ -26,7 +30,10 @@ public class MouseLook : MonoBehaviour
             float deltaHoriz = Input.GetAxis("Mouse X") * sensitivityHoriz;
             transform.Rotate(Vector3.up * deltaHoriz);
         } else if (axes == RotationAxes.MouseY) {
-            //vertical rotation here
+            rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
+            rotationX = Mathf.Clamp (rotationX, minVert, maxVert);
+
+            transform.localEulerAngles = new Vector3 (rotationX, 0, 0);
         } else {
             // both vert and horiz rotation here
         }
