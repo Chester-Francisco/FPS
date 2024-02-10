@@ -22,6 +22,7 @@ public class PlayerCharacter : MonoBehaviour
     public void Hit() {
         health -= 1;
         Debug.Log("Health: " + health);
+
         if(health == 0) {
             Debug.Break();
         }
