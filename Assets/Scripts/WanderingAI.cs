@@ -46,11 +46,14 @@ public class WanderingAI : MonoBehaviour {
 
                 GameObject hitObject = hit.transform.gameObject;
 
-                if(hitObject.GetComponent<PlayerCharacter> ()) {
-                    nextFire = Time.time + fireRate;
-                    laserbeam = Instantiate (laserbeamPrefab) as GameObject;
-                    laserbeam.transform.position = transform.TransformPoint(0, 1.5f, 1.5f);
-                    laserbeam.transform.rotation = transform.rotation;
+                if (hitObject.GetComponent<PlayerCharacter>()) {
+
+                    if (laserbeam == null && Time.time > nextFire) { 
+                        nextFire = Time.time + fireRate;
+                        laserbeam = Instantiate(laserbeamPrefab) as GameObject;
+                        laserbeam.transform.position = transform.TransformPoint(0, 1.5f, 1.5f);
+                        laserbeam.transform.rotation = transform.rotation;
+                     }
                 }
                 else if  (hit.distance < obstacleRange) {
                     float turnAngle = Random.Range(-110, 110);

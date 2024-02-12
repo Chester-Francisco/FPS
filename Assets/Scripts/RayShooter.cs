@@ -54,6 +54,6 @@ public class RayShooter : MonoBehaviour {
         float posX = cam.pixelWidth / 2 - aimSize / 4;
         float posY = cam.pixelHeight / 2 - aimSize / 2;
 
-        GUI.Label (new Rect (posX, posY, aimSize, aimSize), "*", style);
+        GUI.Label (new Rect (posX, posY, aimSize, aimSize), "+", style);
     }
 }
