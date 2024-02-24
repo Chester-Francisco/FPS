@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("laser created");
+        //Debug.Log("laser created");
     }
     private void FixedUpdate()
     {
@@ -21,7 +21,7 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("function called");
+        //Debug.Log("function called");
         PlayerCharacter player = other.GetComponent<PlayerCharacter>();
         if (player != null) {
             player.Hit();
