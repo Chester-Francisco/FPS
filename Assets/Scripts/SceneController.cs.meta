@@ -5,6 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - enemyPrefab: {fileID: 7800533390506579604, guid: 0c2501bce217f4645809db8330a31f51, type: 3}
+  - iguanaPrefab: {fileID: 141256, guid: b4806bcfd71324778b360c0299195b34, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

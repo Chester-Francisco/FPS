@@ -39,7 +39,7 @@ public class WanderingIguana : MonoBehaviour
         } else
         {
             float forwardSpeed = Random.Range(0.05f, 1.0f);
-            turn = 0.0f;
+            turn = 1.0f;
 
             Move(turn, forwardSpeed);
         }
