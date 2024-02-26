@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ReactiveTarget : MonoBehaviour { 
  
     public void ReactToHit() {
@@ -10,15 +11,25 @@ public class ReactiveTarget : MonoBehaviour {
             enemyAi.ChangeState(EnemyStates.dead);
         }
 
-        StartCoroutine (Die());
+        Animator enemyAnimator = GetComponent<Animator>();
+        if(enemyAnimator != null)
+        {
+            enemyAnimator.SetTrigger("Die");
+          
+        }
     }
 
     private IEnumerator Die() {
         // Enemy falls over and disappears after two seconds
-        iTween.RotateAdd (this.gameObject, new Vector3 (-75, -0, 0), 1);
+        //iTween.RotateAdd (this.gameObject, new Vector3 (-75, -0, 0), 1);
     
         yield return new WaitForSeconds (1);
 
         Destroy (this.gameObject);
+    }
+
+    private void DeadEvent()
+    {
+        Destroy(this.gameObject);
     }
 }
