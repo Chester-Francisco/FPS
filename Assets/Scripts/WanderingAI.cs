@@ -67,4 +67,12 @@ public class WanderingAI : MonoBehaviour {
     public void ChangeState(EnemyStates state ) { 
         this.state = state;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 rangeTest = transform.position + transform.forward * obstacleRange;
+        Debug.DrawLine(transform.position, rangeTest);
+        Gizmos.DrawWireSphere(rangeTest, sphereRadius);
+    }
 }

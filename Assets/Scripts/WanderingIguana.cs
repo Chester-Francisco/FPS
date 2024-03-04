@@ -5,12 +5,13 @@ using UnityEngine;
 public class WanderingIguana : MonoBehaviour
 {
     private float iguanaSpeed = 3.0f;
-    private float obstacleRange = 9.0f;
+    private float obstacleRange = 4.0f;
 
     private Animator anim;
 
     private float turn = 0.0f;
 
+    float sphereRadius = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class WanderingIguana : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if(Physics.SphereCast(ray, 0.5f, out hit))
+        if(Physics.SphereCast(ray, sphereRadius, out hit))
         {
             if(hit.distance < obstacleRange)
             {
@@ -38,12 +39,13 @@ public class WanderingIguana : MonoBehaviour
                
                 Move(turn, 0.1f);
             }
-        } else
-        {
-            float forwardSpeed = Random.Range(0.05f, 1.0f);
-            turn = 0.0f;
+           else
+            {
+                float forwardSpeed = Random.Range(0.05f, 1.0f);
+                turn = 0.0f;
 
-            Move(turn, forwardSpeed);
+                Move(turn, forwardSpeed);
+            }
         }
     }
 
@@ -56,5 +58,13 @@ public class WanderingIguana : MonoBehaviour
             anim.SetFloat ("Turn", turn, dampTime, Time.deltaTime);
             anim.SetFloat ("Forward", forward, dampTime, Time.deltaTime);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector3 rangeTest = transform.position + transform.forward * obstacleRange;
+        Debug.DrawLine(transform.position, rangeTest);
+        Gizmos.DrawWireSphere(rangeTest, sphereRadius);
     }
 }
