@@ -32,14 +32,16 @@ public class WanderingIguana : MonoBehaviour
                 if(Mathf.Approximately(turn, 0.0f))
                 {
                     turn = Random.Range(0,2) == 0 ? -0.75f : 0.75f;
+                    Debug.Log(turn);
                 }
-            }
 
-            Move(turn, 0.1f);
+               
+                Move(turn, 0.1f);
+            }
         } else
         {
             float forwardSpeed = Random.Range(0.05f, 1.0f);
-            turn = 1.0f;
+            turn = 0.0f;
 
             Move(turn, forwardSpeed);
         }
@@ -51,8 +53,8 @@ public class WanderingIguana : MonoBehaviour
 
         if (anim != null)
         {
-            anim.SetFloat("Turn", turn, dampTime, Time.deltaTime);
-            anim.SetFloat("Forward", forward, dampTime, Time.deltaTime);
+            anim.SetFloat ("Turn", turn, dampTime, Time.deltaTime);
+            anim.SetFloat ("Forward", forward, dampTime, Time.deltaTime);
         }
     }
 }

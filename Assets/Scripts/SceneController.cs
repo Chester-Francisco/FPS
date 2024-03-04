@@ -24,6 +24,19 @@ public class SceneController : MonoBehaviour
         enemies = new GameObject[enemyCount];
         iguanas = new GameObject[iguanaCount];
 
+        for (int i = 0; i < iguanas.Length; i++)
+        {
+            if (iguanas[i] == null)
+            {
+                iguana = Instantiate(iguanaPrefab) as GameObject;
+                iguanas[i] = iguana;
+                iguana.transform.position = iguanaSpawnPt.position;
+                float angle = Random.Range(0, 360);
+                iguana.transform.Rotate(0, angle, 0);
+            }
+
+        }
+
     }
 
     // Update is called once per frame
@@ -40,19 +53,6 @@ public class SceneController : MonoBehaviour
                 enemy.transform.Rotate(0, angle, 0);
 
             }
-        }
-
-        for(int i = 0; i < iguanas.Length; i++)
-        {
-            if (iguanas[i] == null)
-            {
-                iguana = Instantiate(iguanaPrefab) as GameObject;
-                iguanas[i] = iguana;
-                iguana.transform.position = iguanaSpawnPt.position;
-                float angle = Random.Range(0, 360);
-                iguana.transform.Rotate(0, angle, 0);
-            }
-          
         }
     }
 }
