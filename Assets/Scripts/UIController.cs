@@ -37,7 +37,7 @@ public class UIController : MonoBehaviour
         scoreValue.text = newScore.ToString();
     }
 
-    private void SetGameActive(bool active)
+    public void SetGameActive(bool active)
     {
         if (active)
         {
