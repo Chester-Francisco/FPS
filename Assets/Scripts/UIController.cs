@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreValue;
     [SerializeField] private Image healthBar;
     [SerializeField] private Image crossHair;
+    [SerializeField] private OptionsPopup optionsPopup;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,11 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyUp(KeyCode.Escape) && !optionsPopup.IsActive())
+        {
+            SetGameActive(false); 
+            optionsPopup.Open();
+        }
     }
 
     public void UpdateScore(int newScore)
