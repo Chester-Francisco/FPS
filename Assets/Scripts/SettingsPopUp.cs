@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SettingsPopUp : MonoBehaviour
 {
-    [SerializeField] private UIController uiController;
-    [SerializeField] private OptionsPopup options;
+    [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private TextMeshProUGUI difficultyValue;
     [SerializeField] private Slider slider;
 
@@ -14,12 +13,7 @@ public class SettingsPopUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
-    }
-
-    private void Update()
-    {
-        
+       difficultyValue.text = slider.value.ToString();
     }
 
     public void UpdateDifficulty()
@@ -28,15 +22,14 @@ public class SettingsPopUp : MonoBehaviour
     }
     public void OnOKButton()
     {
-  
         Close();
-        uiController.SetGameActive(true);
+        optionsPopup.Open();
     }
 
     public void OnCancelButton()
     {
         Close();
-        options.Open();
+        optionsPopup.Open();
     }
 
     public void Open()

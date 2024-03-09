@@ -7,11 +7,14 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
 
-    private int score = 0;
+
     [SerializeField] private TextMeshProUGUI scoreValue;
     [SerializeField] private Image healthBar;
     [SerializeField] private Image crossHair;
     [SerializeField] private OptionsPopup optionsPopup;
+    [SerializeField] private SettingsPopUp settingsPopup;
+
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,7 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape) && !optionsPopup.IsActive())
+        if(Input.GetKeyUp(KeyCode.Escape) && !optionsPopup.IsActive() && !settingsPopup.IsActive())
         {
             SetGameActive(false); 
             optionsPopup.Open();

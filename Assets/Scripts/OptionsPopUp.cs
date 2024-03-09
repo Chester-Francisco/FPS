@@ -24,19 +24,16 @@ public class OptionsPopup : MonoBehaviour
     }
     public void OnSettingsButton()
     {
-        Debug.Log("settings clicked");
         Close();
         settingsPopup.Open();
     }
     public void OnExitGameButton()
     {
-        Debug.Log("exit game");
         Application.Quit();
         
     }
     public void OnReturnToGameButton()
     {
-        Debug.Log("return to game");
         Close();
         uiController.SetGameActive(true);
     }
