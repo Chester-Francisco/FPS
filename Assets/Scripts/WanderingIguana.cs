@@ -21,26 +21,21 @@ public class WanderingIguana : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
         if(Physics.SphereCast(ray, sphereRadius, out hit))
         {
-            if(hit.distance < obstacleRange)
-            {
+            if(hit.distance < obstacleRange) {
                 if(Mathf.Approximately(turn, 0.0f))
                 {
                     turn = Random.Range(0,2) == 0 ? -0.75f : 0.75f;
-                    Debug.Log(turn);
+             
                 }
-
-               
                 Move(turn, 0.1f);
             }
-           else
-            {
+            else {
                 float forwardSpeed = Random.Range(0.05f, 1.0f);
                 turn = 0.0f;
 
