@@ -11,15 +11,14 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreValue;
     [SerializeField] private Image healthBar;
     [SerializeField] private Image crossHair;
-    [SerializeField] private OptionsPopup optionsPopup;
+    [SerializeField] private OptionsPopUp optionsPopup;
     [SerializeField] private SettingsPopUp settingsPopup;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        healthBar.fillAmount = 1;
-        healthBar.color = Color.green;
+        UpdateHealth(1.0f);
         SetGameActive(true);
     }
 
@@ -55,5 +54,26 @@ public class UIController : MonoBehaviour
             crossHair.gameObject.SetActive(false);
         }
 
+    }
+
+    private void Awake()
+    {
+        Messenger<float>.AddListener(GameEvent.HEALTH_CHANGED, OnHealthChange);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger<float>.RemoveListener(GameEvent.HEALTH_CHANGED, OnHealthChange);
+    }
+
+    private void OnHealthChange(float newVal)
+    {
+       UpdateHealth(newVal);
+    }
+
+    private void UpdateHealth(float healthPercentage)
+    {
+        healthBar.color = Color.Lerp(Color.red, Color.green, healthPercentage);
+        healthBar.fillAmount = healthPercentage;
     }
 }

@@ -3,28 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsPopup : MonoBehaviour
+public class OptionsPopUp : BasePopUp
 {
 
     [SerializeField] private UIController uiController;
     [SerializeField] private SettingsPopUp settingsPopup;
 
 
-    public void Open()
-    {
-        gameObject.SetActive(true);
-    }
-    public void Close()
-    {
-        gameObject.SetActive(false);
-    }
-    public bool IsActive()
-    {
-        return gameObject.activeSelf;
-    }
+    
     public void OnSettingsButton()
     {
-        Close();
+        base.Close();
         settingsPopup.Open();
     }
     public void OnExitGameButton()
@@ -34,7 +23,9 @@ public class OptionsPopup : MonoBehaviour
     }
     public void OnReturnToGameButton()
     {
-        Close();
+        base.Close();
         uiController.SetGameActive(true);
     }
+
+    
 }
