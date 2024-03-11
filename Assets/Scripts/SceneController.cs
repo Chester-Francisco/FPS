@@ -97,4 +97,9 @@ public class SceneController : MonoBehaviour
     {
         return PlayerPrefs.GetInt("difficulty", 1);
     }
+
+    public void rand()
+    {
+
+    }
 }
