@@ -13,17 +13,22 @@ public class SettingsPopUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       difficultyValue.text = slider.value.ToString();
+       //difficultyValue.text = slider.value.ToString();
     }
 
-    public void UpdateDifficulty()
+    public void UpdateDifficulty(float difficulty)
     {
-        difficultyValue.text = slider.value.ToString();
+        difficultyValue.text = ((int)difficulty).ToString();
+    }
+    public void OnDifficultyValueChanged(float difficulty)
+    {
+        UpdateDifficulty(difficulty);
     }
     public void OnOKButton()
     {
         Close();
         optionsPopup.Open();
+        PlayerPrefs.SetInt("difficulty", (int)slider.value);
     }
 
     public void OnCancelButton()
@@ -35,6 +40,8 @@ public class SettingsPopUp : MonoBehaviour
     public void Open()
     {
         gameObject.SetActive(true);
+        slider.value = PlayerPrefs.GetInt("difficulty", 1);
+        UpdateDifficulty(slider.value);
     }
     public void Close()
     {
