@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ReactiveTarget : MonoBehaviour { 
- 
-    public void ReactToHit() {
-        WanderingAI enemyAi = GetComponent<WanderingAI>();
-        if(enemyAi != null ) {
-            enemyAi.ChangeState(EnemyStates.dead);
-        }
+public class ReactiveTarget : MonoBehaviour {
 
-        Animator enemyAnimator = GetComponent<Animator>();
-        if(enemyAnimator != null)
+    private bool isAlive = true;
+    public void ReactToHit() {
+
+        if (isAlive)
         {
-            enemyAnimator.SetTrigger("Die");
-          
+            WanderingAI enemyAi = GetComponent<WanderingAI>();
+            if (enemyAi != null)
+            {
+                enemyAi.ChangeState(EnemyStates.dead);
+            }
+
+            Animator enemyAnimator = GetComponent<Animator>();
+            if (enemyAnimator != null)
+            {
+                enemyAnimator.SetTrigger("Die");
+
+            }
+
+            isAlive = false;
+            Messenger.Broadcast(GameEvent.ENEMY_DEAD);
         }
+       
     }
 
     private IEnumerator Die() {

@@ -13,6 +13,8 @@ public class WanderingAI : MonoBehaviour {
     private float obstacleRange = 5.0f;
     private float sphereRadius = 0.75f;
     private EnemyStates state;
+    private float baseSpeed = 0.75f;
+    float difficultySpeedDelta = 0.5f;
 
     [SerializeField] private GameObject laserbeamPrefab;
     private GameObject laserbeam;
@@ -74,5 +76,11 @@ public class WanderingAI : MonoBehaviour {
         Vector3 rangeTest = transform.position + transform.forward * obstacleRange;
         Debug.DrawLine(transform.position, rangeTest);
         Gizmos.DrawWireSphere(rangeTest, sphereRadius);
+    }
+
+    public void SetDifficulty(int newDifficulty)
+    {
+        Debug.Log("WanderingAI.SetDifficulty(" + newDifficulty + ")");
+        enemySpeed = baseSpeed + (newDifficulty * difficultySpeedDelta);
     }
 }

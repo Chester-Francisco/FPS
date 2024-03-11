@@ -14,12 +14,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private OptionsPopup optionsPopup;
     [SerializeField] private SettingsPopUp settingsPopup;
 
-    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateScore(score);
         healthBar.fillAmount = 1;
         healthBar.color = Color.green;
         SetGameActive(true);

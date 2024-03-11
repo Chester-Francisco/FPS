@@ -8,6 +8,9 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject iguanaPrefab;
     [SerializeField] private Transform iguanaSpawnPt;
+    [SerializeField] private UIController ui;
+
+    private int score = 0;
 
     private GameObject enemy;
     private GameObject iguana;
@@ -21,6 +24,7 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+        ui.UpdateScore(score);
         enemies = new GameObject[enemyCount];
         iguanas = new GameObject[iguanaCount];
 
@@ -47,12 +51,50 @@ public class SceneController : MonoBehaviour
         {
             if (enemies[i] == null) {
                 enemy = Instantiate(enemyPrefab) as GameObject;
+
+                WanderingAI ai = enemy.GetComponent<WanderingAI>();
+                ai.SetDifficulty(GetDifficulty());
+
                 enemies[i] = enemy;
                 enemy.transform.position = spawnPoint;
+
                 float angle = Random.Range(0, 360);
                 enemy.transform.Rotate(0, angle, 0);
 
             }
         }
+    }
+
+    private void Awake()
+    {
+        Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.AddListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
+        Messenger<int>.RemoveListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+    }
+
+    private void OnEnemyDead()
+    {
+        score++;
+        ui.UpdateScore(score);
+    }
+
+    private void OnDifficultyChanged(int newDifficulty) {
+        Debug.Log("scene.OnDifficultyChanged(" + newDifficulty + ")");
+
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            WanderingAI ai = enemies[i].GetComponent<WanderingAI>();
+            ai.SetDifficulty(newDifficulty);    
+        }
+    }
+
+    public int GetDifficulty()
+    {
+        return PlayerPrefs.GetInt("difficulty", 1);
     }
 }
