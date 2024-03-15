@@ -14,11 +14,13 @@ public class UIController : MonoBehaviour
     [SerializeField] private OptionsPopUp optionsPopup;
     [SerializeField] private SettingsPopUp settingsPopup;
 
+    private float fullHealth = 1.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateHealth(1.0f);
+        UpdateHealth(fullHealth);
         SetGameActive(true);
     }
 

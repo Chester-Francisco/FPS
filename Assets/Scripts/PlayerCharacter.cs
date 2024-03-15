@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
 
-    private int health;
-    private int maxHealth = 5;
+    private float health;
+    private float maxHealth = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,10 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public void Hit() {
-        health -= 1;
+        health -= .2f;
         Debug.Log("Health: " + health);
         Messenger<float>.Broadcast(GameEvent.HEALTH_CHANGED, health);
+        
 
         if(health == 0) {
             Debug.Break();
