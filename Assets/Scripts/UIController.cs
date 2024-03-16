@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private OptionsPopUp optionsPopup;
     [SerializeField] private SettingsPopUp settingsPopup;
 
-   
+    private int popupsActive = 0;
 
 
     // Start is called before the first frame update
@@ -27,9 +27,14 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape) && !optionsPopup.IsActive() && !settingsPopup.IsActive())
+        //if(Input.GetKeyUp(KeyCode.Escape) && !optionsPopup.IsActive() && !settingsPopup.IsActive())
+        //{
+        //    SetGameActive(false); 
+        //    optionsPopup.Open();
+        //}
+        if (Input.GetKeyUp(KeyCode.Escape) && popupsActive == 0)
         {
-            SetGameActive(false); 
+         
             optionsPopup.Open();
         }
     }
@@ -61,11 +66,15 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         Messenger<float>.AddListener(GameEvent.HEALTH_CHANGED, OnHealthChange);
+        Messenger.AddListener(GameEvent.POPUP_OPENED, OnPopUpOpened);
+        Messenger.AddListener(GameEvent.POPUP_CLOSED, OnPopUpClosed);
     }
 
     private void OnDestroy()
     {
         Messenger<float>.RemoveListener(GameEvent.HEALTH_CHANGED, OnHealthChange);
+        Messenger.RemoveListener(GameEvent.POPUP_OPENED, OnPopUpOpened);
+        Messenger.RemoveListener(GameEvent.POPUP_CLOSED, OnPopUpClosed);
     }
 
     private void OnHealthChange(float newVal)
@@ -78,4 +87,25 @@ public class UIController : MonoBehaviour
         healthBar.color = Color.Lerp(Color.red, Color.green, healthPercentage);
         healthBar.fillAmount = healthPercentage;
     }
+
+    private void OnPopUpOpened()
+    {
+        if(popupsActive == 0)
+        {
+            SetGameActive(false);
+        }
+        popupsActive++;
+        Debug.Log(popupsActive);
+    }
+
+    private void OnPopUpClosed()
+    {
+        popupsActive--;
+        Debug.Log(popupsActive);
+        if(popupsActive == 0)
+        {
+            SetGameActive(true);
+        }
+    }
+
 }

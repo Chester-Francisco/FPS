@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class OptionsPopUp : BasePopUp
 {
 
-    [SerializeField] private UIController uiController;
     [SerializeField] private SettingsPopUp settingsPopup;
 
 
@@ -24,7 +23,7 @@ public class OptionsPopUp : BasePopUp
     public void OnReturnToGameButton()
     {
         base.Close();
-        uiController.SetGameActive(true);
+        //uiController.SetGameActive(true);
     }
 
     

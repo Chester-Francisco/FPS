@@ -27,7 +27,7 @@ public class SettingsPopUp : BasePopUp
     public void OnOKButton()
     {
         base.Close();
-        optionsPopup.Open();
+        base.Open();
         PlayerPrefs.SetInt("difficulty", (int)slider.value);
         Messenger<int>.Broadcast(GameEvent.DIFFICULTY_CHANGED, (int)slider.value);
     }
@@ -35,7 +35,8 @@ public class SettingsPopUp : BasePopUp
     public void OnCancelButton()
     {
         base.Close();
-        optionsPopup.Open();
+        //optionsPopup.Open();
+        base.Open();
     }
 
     override public void Open()
@@ -43,5 +44,6 @@ public class SettingsPopUp : BasePopUp
         gameObject.SetActive(true);
         slider.value = PlayerPrefs.GetInt("difficulty", 1);
         UpdateDifficulty(slider.value);
+
     }
 }

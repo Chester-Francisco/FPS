@@ -15,14 +15,32 @@ public class BasePopUp : MonoBehaviour
     {
         
     }
-   virtual public void Open()
+    virtual public void Open()
     {
-        gameObject.SetActive(true);
+        if(!IsActive())
+        {
+            gameObject.SetActive(true);
+            Messenger.Broadcast(GameEvent.POPUP_OPENED);
+        }
+        else
+        {
+            Debug.LogError(this + ".Open() - trying to open pop up that is active");
+        }
+       
     }
 
    virtual public void Close()
     {
-        gameObject.SetActive(false);
+        if(IsActive())
+        {
+            gameObject.SetActive(false);
+            Messenger.Broadcast(GameEvent.POPUP_CLOSED);
+        } 
+        else
+        {
+            Debug.LogError(this + ".Close() - trying to close pop up that is inactive");
+        }
+        
     }
 
     virtual public bool IsActive()
