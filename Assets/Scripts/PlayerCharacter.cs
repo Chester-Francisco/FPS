@@ -6,7 +6,7 @@ public class PlayerCharacter : MonoBehaviour
 {
 
     private float health;
-    private float maxHealth = 1.0f;
+    private float maxHealth = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,9 @@ public class PlayerCharacter : MonoBehaviour
     }
 
     public void Hit() {
-        health -= .2f;
-        Debug.Log("Health: " + health);
-        Messenger<float>.Broadcast(GameEvent.HEALTH_CHANGED, health);
+        health -= 1;
+        Debug.Log("Health: " + health * .2f);
+        Messenger<float>.Broadcast(GameEvent.HEALTH_CHANGED, health * .2f );
         
 
         if(health == 0) {
