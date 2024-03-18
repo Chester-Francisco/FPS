@@ -17,7 +17,8 @@ public class BasePopUp : MonoBehaviour
     }
     virtual public void Open()
     {
-        if(!IsActive())
+        Debug.Log(this + "Base pop op - Open()");
+        if (!IsActive())
         {
             gameObject.SetActive(true);
             Messenger.Broadcast(GameEvent.POPUP_OPENED);
@@ -31,6 +32,8 @@ public class BasePopUp : MonoBehaviour
 
    virtual public void Close()
     {
+
+        Debug.Log(this + "Base pop op - Close()");
         if(IsActive())
         {
             gameObject.SetActive(false);
