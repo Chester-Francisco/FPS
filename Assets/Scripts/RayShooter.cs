@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayShooter : MonoBehaviour {
+public class RayShooter : ActiveDuringGameplay {
 
     private Camera cam;
     //[SerializeField] private int aimSize = 16;
@@ -57,26 +57,26 @@ public class RayShooter : MonoBehaviour {
     //    ////GUIGUI.Label (new Rect (posX, posY, aimSize, aimSize), "+", style);
     //}
 
-    private void Awake()
-    {
-        Messenger<bool>.AddListener(GameEvent.GAME_ACTIVE, OnGameActive);
-        Messenger<bool>.AddListener(GameEvent.GAME_INACTIVE, OnGameInActive);
+    //private void Awake()
+    //{
+    //    Messenger<bool>.AddListener(GameEvent.GAME_ACTIVE, OnGameActive);
+    //    Messenger<bool>.AddListener(GameEvent.GAME_INACTIVE, OnGameInActive);
 
-    }
+    //}
 
-    private void OnDestroy()
-    {
-        Messenger<bool>.RemoveListener(GameEvent.GAME_ACTIVE, OnGameActive);
-        Messenger<bool>.RemoveListener(GameEvent.GAME_INACTIVE, OnGameInActive);
-    }
+    //private void OnDestroy()
+    //{
+    //    Messenger<bool>.RemoveListener(GameEvent.GAME_ACTIVE, OnGameActive);
+    //    Messenger<bool>.RemoveListener(GameEvent.GAME_INACTIVE, OnGameInActive);
+    //}
 
-    private void OnGameActive(bool isActive)
-    {
-        this.enabled = isActive;
-    }
+    //private void OnGameActive(bool isActive)
+    //{
+    //    this.enabled = isActive;
+    //}
 
-    private void OnGameInActive(bool isActive)
-    {
-        this.enabled = isActive;
-    }
+    //private void OnGameInActive(bool isActive)
+    //{
+    //    this.enabled = isActive;
+    //}
 }
