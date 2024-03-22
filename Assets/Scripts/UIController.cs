@@ -52,6 +52,7 @@ public class UIController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             crossHair.gameObject.SetActive(true);
+            Messenger<bool>.Broadcast(GameEvent.GAME_ACTIVE, active);
         }
         else
         {
@@ -59,6 +60,7 @@ public class UIController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             crossHair.gameObject.SetActive(false);
+            Messenger<bool>.Broadcast(GameEvent.GAME_INACTIVE, active);
         }
 
     }
@@ -95,13 +97,11 @@ public class UIController : MonoBehaviour
             SetGameActive(false);
         }
         popupsActive++;
-        Debug.Log(popupsActive);
     }
 
     private void OnPopUpClosed()
     {
         popupsActive--;
-        Debug.Log(popupsActive);
         if(popupsActive == 0)
         {
             SetGameActive(true);

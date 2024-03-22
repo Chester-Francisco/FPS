@@ -45,7 +45,7 @@ public class RayShooter : MonoBehaviour {
 
         Destroy (sphere);
     }
-    
+
     //void OnGUI() {
     //    //GUIStyle style = new GUIStyle();
     //    //style.fontSize = aimSize;
@@ -56,4 +56,27 @@ public class RayShooter : MonoBehaviour {
 
     //    ////GUIGUI.Label (new Rect (posX, posY, aimSize, aimSize), "+", style);
     //}
+
+    private void Awake()
+    {
+        Messenger<bool>.AddListener(GameEvent.GAME_ACTIVE, OnGameActive);
+        Messenger<bool>.AddListener(GameEvent.GAME_INACTIVE, OnGameInActive);
+
+    }
+
+    private void OnDestroy()
+    {
+        Messenger<bool>.RemoveListener(GameEvent.GAME_ACTIVE, OnGameActive);
+        Messenger<bool>.RemoveListener(GameEvent.GAME_INACTIVE, OnGameInActive);
+    }
+
+    private void OnGameActive(bool isActive)
+    {
+        this.enabled = isActive;
+    }
+
+    private void OnGameInActive(bool isActive)
+    {
+        this.enabled = isActive;
+    }
 }
