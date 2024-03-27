@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
@@ -47,9 +48,10 @@ public class SceneController : MonoBehaviour
     void Update() {
 
 
-        for(int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i] == null) {
+            if (enemies[i] == null)
+            {
                 enemy = Instantiate(enemyPrefab) as GameObject;
 
                 WanderingAI ai = enemy.GetComponent<WanderingAI>();
@@ -69,12 +71,16 @@ public class SceneController : MonoBehaviour
     {
         Messenger.AddListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.AddListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+        Messenger.AddListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
+        Messenger.AddListener(GameEvent.RESTART_GAME, OnRestartGame);
     }
 
     private void OnDestroy()
     {
         Messenger.RemoveListener(GameEvent.ENEMY_DEAD, OnEnemyDead);
         Messenger<int>.RemoveListener(GameEvent.DIFFICULTY_CHANGED, OnDifficultyChanged);
+        Messenger.RemoveListener(GameEvent.PLAYER_DEAD, OnPlayerDead);
+        Messenger.RemoveListener(GameEvent.RESTART_GAME, OnRestartGame);
     }
 
     private void OnEnemyDead()
@@ -98,8 +104,13 @@ public class SceneController : MonoBehaviour
         return PlayerPrefs.GetInt("difficulty", 1);
     }
 
-    public void rand()
+    public void OnPlayerDead()
     {
+        ui.ShowGameOverPopup();
+    }
 
+    public void OnRestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -6,6 +6,7 @@ public class FPSInput : MonoBehaviour {
 
     private float speed = 9.0f;
     private float gravity = -9.8f;
+    private float pushForce = 5.0f;
 
     private CharacterController charController;
 
@@ -48,5 +49,15 @@ public class FPSInput : MonoBehaviour {
         //moving player using built in Character Controller
         //notice the difference compared to rigidbody movement and transform.Translate(movement)
         charController.Move (movement);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        if (body != null && !body.isKinematic)
+        {
+            body.velocity = hit.moveDirection * pushForce;
+        }
     }
 }
